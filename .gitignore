@@ -1,0 +1,7 @@
+/build
+/build_sdas
+/unused
+*.bak
+*.gb
+*.map
+*.sym
