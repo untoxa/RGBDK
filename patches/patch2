@@ -1,0 +1,72 @@
+ sdcc/src/z80/mappings.i | 53 +++++++++++++++++++++++++++----------------------
+ 1 file changed, 29 insertions(+), 24 deletions(-)
+
+diff --git a/sdcc/src/z80/mappings.i b/sdcc/src/z80/mappings.i
+index 6cae8d3..5d03c5b 100644
+--- a/sdcc/src/z80/mappings.i
++++ b/sdcc/src/z80/mappings.i
+@@ -152,31 +152,31 @@ static const ASM_MAPPING _asxxxx_r2k_mapping[] = {
+ };
+ 
+ static const ASM_MAPPING _rgbds_mapping[] = {
+-    { "global", "GLOBAL %s" },
+-    { "extern", "GLOBAL %s" },
++    { "global", "EXPORT %s" },
++    { "extern", "" },
+     { "slabeldef", "%s:" },
+     { "labeldef", "%s:" },
+     { "tlabeldef", ".l%05d:" },
+     { "tlabel", ".l%05d" },
+-    { "fileprelude", 
++    { "fileprelude",  
+       "; Generated using the rgbds tokens.\n"
+-      "\t; We have to define these here as sdcc doesn't make them global by default\n"
+-      "\tGLOBAL __mulschar\n"
+-      "\tGLOBAL __muluchar\n"
+-      "\tGLOBAL __mulint\n"
+-      "\tGLOBAL __divschar\n"
+-      "\tGLOBAL __divuchar\n"
+-      "\tGLOBAL __divsint\n"
+-      "\tGLOBAL __divuint\n"
+-      "\tGLOBAL __modschar\n"
+-      "\tGLOBAL __moduchar\n"
+-      "\tGLOBAL __modsint\n"
+-      "\tGLOBAL __moduint\n"
+-      "\tGLOBAL __mullong\n"  
+-      "\tGLOBAL __modslong\n"  
+-      "\tGLOBAL __divslong\n"  
+-      "\tGLOBAL banked_call\n"
+-      "\tGLOBAL banked_ret\n"
+     },
+     { "functionheader", 
+       "; ---------------------------------\n"
+@@ -187,10 +187,13 @@ static const ASM_MAPPING _rgbds_mapping[] = {
+     { "globalfunctionlabeldef", "%s::" },
+     { "zero", "$00" },
+     { "one", "$01" },
+-    { "area", "SECTION \"%s\",CODE" },
+-    { "areadata", "SECTION \"%F_%s\",BSS" },
++    
++//  { "area", "SECTION \"%s\",CODE" },
++    { "area", "SECTION FRAGMENT \"_%s\",ROM0" },
++
++    { "areadata", "SECTION \"%F_DATA\",%s" },
+     { "areacode", "SECTION \"%F_CODE\",%s" }, 
+-    { "areahome", "SECTION \"%F_HOME\",HOME" },
++    { "areahome", "SECTION \"%F_HOME\",ROM0" },
+     { "ascii", "DB \"%s\"" },
+     { "ds", "DS %d" },
+     { "db", "DB" },
+@@ -228,9 +231,11 @@ static const ASM_MAPPING _rgbds_gb_mapping[] = {
+     { "adjustsp", "add sp, -%d" },
+     { "enter", "" },
+     { "enters", "" },
++    { "enterx", 
++      "add sp, -%d" },
+     { "ldahli", "ld a, [hl+]" },
+     { "*hl", "[hl]" },
+-    { "ldahlsp", "ld hl, [sp+%d]" },
++    { "ldahlsp", "ld hl, sp+%d" },
+     { "ldaspsp", "add sp, %d" },
+     { "*pair", "[%s]" },
+     { NULL, NULL }
