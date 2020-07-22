@@ -7,7 +7,10 @@
 int myint = 2;
 
 int addint(int a, int b) {
-  return a + b;
+    if (!a)
+        return a + b;
+    else
+        return a - b;
 }
 
 void main() {
