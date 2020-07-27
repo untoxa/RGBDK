@@ -4,8 +4,6 @@
 
 #include "rgbdstest.b1.h"
 
-
-
 extern volatile UINT8 shadow_LCDC;
 extern volatile UINT8 shadow_SCY;
 extern volatile UINT8 shadow_SCX;

@@ -17,9 +17,9 @@ RGBASM := $(RGBDS)rgbasm -i include
 RGBLINK:= $(RGBDS)rgblink
 RGBFIX := $(RGBDS)rgbfix
 
-SDCC := ./bin
+SDCC := 
 CINC := -I include -I $(GBDK)/include
-CC := $(SDCC)/sdcc -mgbz80 --asm=rgbds --codeseg ROMX --no-optsdcc-in-asm --no-std-crt0 
+CC := $(SDCC)sdcc -mgbz80 --asm=rgbds --codeseg ROMX --no-optsdcc-in-asm --no-std-crt0 
 
 rom.gb: lib/header.o $(SRCS:.c=.o) lib/gsinit_tail.o $(LIBS:.asm=.o) $(ASRC:.asm=.o)
 	$(RGBLINK) $(LDFLAGS) -o $@ -m $(@:.gb=.map) -n $(@:.gb=.sym) $^ && \

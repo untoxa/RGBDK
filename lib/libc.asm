@@ -4,6 +4,7 @@ SECTION "Libc", ROM0
 _printf::
 	ret
 
+___sdcc_bcall::
 banked_call::            ; Performs a long call.
     pop    hl        ; Get the return address
     ldh    a,[hCurROMBank]
@@ -27,7 +28,7 @@ banked_call::            ; Performs a long call.
 jump:
     jp    hl
 
-banked_call_ehl::   ; Performs a long call.
+___sdcc_bcall_ehl::   ; Performs a long call.
     ldh   a,[hCurROMBank]
     push   af  ; Push the current bank onto the stack
     ld    a, e
