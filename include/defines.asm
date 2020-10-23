@@ -30,6 +30,20 @@ lb: MACRO
 	ld \1, ((\2) << 8) | (\3)
 ENDM
 
+; switches bank with updating of a tracking variable 
+switch_bank: MACRO
+	ld a, BANK(\1)
+	ldh [hCurROMBank], a
+	ld [rROMB0], a
+ENDM
+
+; switches bank with updating of a tracking variable 
+ehl_call_far: MACRO
+	ld e, BANK(\1)
+	ld hl, \1
+	call ___sdcc_bcall_ehl
+ENDM
+
 
 ; SGB packet types
 RSRESET

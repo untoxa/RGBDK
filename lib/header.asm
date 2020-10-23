@@ -97,6 +97,11 @@ Reset::
 	ld a, h ; ld a, HIGH(wShadowOAM)
 	ldh [hOAMHigh], a
 
+	; bank1 is switched on by default
+	ld a, 1
+	ldh [hCurROMBank], a
+	ld [rROMB0], a
+
 	; `Intro`'s bank has already been loaded earlier
 	jp init
 
@@ -125,6 +130,7 @@ hConsoleType:: db
 ; Copy of the currently-loaded ROM bank, so the handlers can restore it
 ; Make sure to always write to it before writing to ROMB0
 ; (Mind that if using ROMB1, you will run into problems)
+__current_bank::
 hCurROMBank:: db
 
 

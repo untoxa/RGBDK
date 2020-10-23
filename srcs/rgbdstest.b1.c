@@ -1,10 +1,10 @@
-//#pragma bank 1
+#pragma bank 2
 
 #include <stdio.h>
 
 int res = 2;
 
-const unsigned char const hello1[] = "bank1";
+const unsigned char const hello1[] = "bank2";
 
 int some_nonbanked_proc(int a) __nonbanked {
     return a << 3;

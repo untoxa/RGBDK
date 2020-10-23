@@ -68,13 +68,8 @@ JumpToPtr::
 	ld h, [hl]
 	ld l, a
 ; Jump to some address
-; All registers are passed to the called code intact, except Z is reset
-; (`jp CallHL` is equivalent to `jp hl`, but with the extra error checking on top)
-; Soft-crashes if attempting to jump to RAM
 ; @param hl The address of the code to jump to
 CallHL::
-	bit 7, h
-	error nz
 	jp hl
 	ds $30 - @ ; 3 free bytes
 
