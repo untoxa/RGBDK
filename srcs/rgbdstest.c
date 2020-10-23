@@ -1,15 +1,7 @@
-#include <gb/gb.h>
+#include <gb.h>
 #include <stdio.h>
-#include <string.h>
 
 #include "rgbdstest.b1.h"
-
-extern volatile UINT8 shadow_LCDC;
-extern volatile UINT8 shadow_SCY;
-extern volatile UINT8 shadow_SCX;
-extern volatile UINT8 shadow_BGP;
-extern volatile UINT8 shadow_OBP0;
-extern volatile UINT8 shadow_OBP1;
 
 int myint = 2;
 

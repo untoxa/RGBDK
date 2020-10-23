@@ -21,9 +21,8 @@ RGBLINK:= $(RGBDS)rgblink
 RGBFIX := $(RGBDS)rgbfix
 
 SDCC := 
-CINC := -I include -I $(GBDK)/include
-CC := $(SDCC)sdcc -mgbz80 --asm=rgbds --codeseg ROMX --no-optsdcc-in-asm --fverbose-asm --no-std-crt0
-
+CINC := -I libc/include
+CC := $(SDCC)sdcc -mgbz80 --asm=rgbds --codeseg ROMX --no-optsdcc-in-asm --no-std-crt0 --fsigned-char
 
 all:	prepare rom.gb
 

@@ -245,7 +245,9 @@ hOBP1:: db
 ; Each bit represents a button, with that bit set == button pressed
 ; Button order: Down, Up, Left, Right, Start, select, B, A
 ; U+D and L+R are filtered out by software, so they will never happen
+_JoypadHeld::
 hHeldKeys:: db
+_JoypadPressed::
 hPressedKeys:: db
 
 ; If this is 0, pressing SsAB at the same time will not reset the game
