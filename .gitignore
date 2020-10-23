@@ -1,5 +1,6 @@
 /build
 /unused
+/obj
 *.bak
 *.gb
 *.map

@@ -1,8 +1,11 @@
 .SUFFIXES:
 
-SRCS := $(wildcard srcs/*.c)
-ASRC := $(wildcard srcs/*.asm)
-LIBS := $(wildcard lib/*.asm)
+OBJDIR = obj
+
+SRCS = $(foreach dir,srcs,$(notdir $(wildcard $(dir)/*.c)))
+ASRC = $(foreach dir,srcs,$(notdir $(wildcard $(dir)/*.asm))) 
+LIBS = $(foreach dir,lib,$(notdir $(wildcard $(dir)/*.asm)))
+
 
 ASFLAGS  = -p $(PADVALUE) $(addprefix -i,$(INCDIRS)) $(addprefix -W,$(WARNINGS))
 LDFLAGS  = -p $(PADVALUE)
@@ -19,14 +22,33 @@ RGBFIX := $(RGBDS)rgbfix
 
 SDCC := 
 CINC := -I include -I $(GBDK)/include
-CC := $(SDCC)sdcc -mgbz80 --asm=rgbds --codeseg ROMX --no-optsdcc-in-asm --no-std-crt0 
+CC := $(SDCC)sdcc -mgbz80 --asm=rgbds --codeseg ROMX --no-optsdcc-in-asm --fverbose-asm --no-std-crt0
 
-rom.gb: lib/header.o $(SRCS:.c=.o) lib/gsinit_tail.o $(LIBS:.asm=.o) $(ASRC:.asm=.o)
+
+all:	prepare rom.gb
+
+rom.gb:	$(OBJDIR)/header.o $(SRCS:%.c=$(OBJDIR)/%.o) $(OBJDIR)/gsinit_tail.o $(ASRC:%.asm=$(OBJDIR)/%.o) $(LIBS:%.asm=$(OBJDIR)/%.o)
 	$(RGBLINK) $(LDFLAGS) -o $@ -m $(@:.gb=.map) -n $(@:.gb=.sym) $^ && \
 	$(RGBFIX) $(FIXFLAGS) -v $@
+
+$(OBJDIR)/%.asm:	srcs/%.c
+	$(CC) $(CINC) -S -o $@ $<
+
+$(OBJDIR)/%.o:	srcs/%.asm
+	$(RGBASM) $(ASFLAGS) -o $@ $<
+
+$(OBJDIR)/%.o:	lib/%.asm
+	$(RGBASM) $(ASFLAGS) -o $@ $<
 
 %.o: %.asm
 	$(RGBASM) $(ASFLAGS) -o $@ $<
 
 %.asm: %.c
 	$(CC) $(CINC) -S -o $@ $<
+
+prepare:
+	mkdir -p $(OBJDIR)
+
+clean:
+	rm -rf obj/*
+	rm -rf rom.*
