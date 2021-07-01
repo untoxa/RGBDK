@@ -15,7 +15,7 @@ include rgbdk.mk
 
 GBDK := ../../gbdk
 
-RGBDS :=
+RGBDS := ./_rgbds/
 RGBASM := $(RGBDS)rgbasm -i include
 RGBLINK:= $(RGBDS)rgblink
 RGBFIX := $(RGBDS)rgbfix

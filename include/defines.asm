@@ -2,7 +2,7 @@
 ; First, let's include libraries
 
 INCLUDE "hardware.inc/hardware.inc"
-	rev_Check_hardware_inc 2.9
+	rev_Check_hardware_inc 3.0
 
 INCLUDE "rgbds-structs/structs.asm"
 
@@ -27,7 +27,7 @@ ENDM
 lb: MACRO
 	assert -128 <= (\2) && (\2) <= 255, "Second argument to `lb` must be 8-bit!"
 	assert -128 <= (\3) && (\3) <= 255, "Third argument to `lb` must be 8-bit!"
-	ld \1, ((\2) << 8) | (\3)
+	ld \1, (LOW(\2) << 8) | LOW(\3)
 ENDM
 
 ; switches bank with updating of a tracking variable 
@@ -43,7 +43,6 @@ ehl_call_far: MACRO
 	ld hl, \1
 	call ___sdcc_bcall_ehl
 ENDM
-
 
 ; SGB packet types
 RSRESET
@@ -106,6 +105,6 @@ error: MACRO
 		; This assembles to XX FF (with XX being the `jr` instruction)
 		; If the condition is fulfilled, this jumps to the operand: $FF
 		; $FF encodes the instruction `rst $38`!
-		jr \1, @-1
+		jr \1, @+1
 	ENDC
 ENDM

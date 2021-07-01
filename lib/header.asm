@@ -142,6 +142,7 @@ hOAMDMA::
 
 SECTION UNION "Shadow OAM", WRAM0,ALIGN[8]
 
+_shadow_OAM::
 wShadowOAM::
 	ds NB_SPRITES * 4
 
